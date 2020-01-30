@@ -1,12 +1,26 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const { builtinModules } = require('module');
 
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     babel: {
       plugins: [require.resolve('ember-auto-import/babel-plugin')],
-    }
+    },
+
+    autoImport: {
+      webpack: {
+        externals: [
+          function(context, request, callback) {
+            if (builtinModules.includes(request)) {
+              return callback(null, `FastBoot.require('${request}')`);
+            }
+            callback();
+          }
+        ],
+      },
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
