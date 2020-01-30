@@ -1,5 +1,10 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
+<h1>FastBoot</h1>
 
-{{outlet}}
+<h2>System</h2>
+
+<dl>
+  {{#each-in this.model as |key value|}}
+    <dt>{{key}}</dt>
+    <dd>{{value}}</dd>
+  {{/each-in}}
+</dl>
